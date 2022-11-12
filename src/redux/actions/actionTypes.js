@@ -11,6 +11,8 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const LOAD_CART_ITEMS = "LOAD_CART_ITEMS";
 export const INCREMENT_ITEM = "INCREMENT_ITEM"
 
+export const DECREMENT_QUANTITY = 'DECREMENT_QUANTITY'
+
 // By convention, actions that end in "_SUCCESS" are assumed to have been the result of a completed
 // API call. But since we're doing an optimistic delete, we're hiding loading state.
 // So this action name deliberately omits the "_SUCCESS" suffix.

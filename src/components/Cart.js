@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import {addToCart} from "../redux/actions/cartActions";
+import {addToCart, onDecrement} from "../redux/actions/cartActions";
+import PropTypes from 'prop-types';
 
  class Cart extends Component {
   getNameById = id=>{
@@ -9,6 +10,10 @@ import {addToCart} from "../redux/actions/cartActions";
   onIncrement= e => {
     this.props.addToCart(e.target.id)
   }
+
+  onDecrement= e => {
+    this.props.onDecrement(e.target.id);
+  }
   getTotal = ()=>{
     return Object.keys(this.props.cart).reduce((total,c)=>{
       console.log(total , this.getNameById(c).price , this.props.cart[c]);
@@ -16,8 +21,11 @@ import {addToCart} from "../redux/actions/cartActions";
       return total;
     },0)
   }
+
+  /*onChange = (e,title) => {
+    console.log(e.target.title);
+  }*/
    render() {
-    console.log();
     console.log(Object.keys(this.props.cart));
     return (
       <div>
@@ -26,7 +34,7 @@ import {addToCart} from "../redux/actions/cartActions";
         {Object.keys(this.props.cart).map(id=> this.getNameById(id)).map(({id, title, price, url},i)=> <tr key={i}>
           <td><img src={url} width={200}/></td>
           <td>{title}</td>
-          <td><button>-</button>{this.props.cart[id]}<button id={id} onClick={this.onIncrement}>+</button></td>
+          <td><button id={id} onClick={this.onDecrement}>-</button>{this.props.cart[id]}<button id={id} onClick={this.onIncrement}>+</button></td>
           <td>{price}</td>
         </tr>)}
         <tr>
@@ -40,6 +48,13 @@ import {addToCart} from "../redux/actions/cartActions";
     )
   }
 }
+
+Cart.propTypes = {
+  cart: PropTypes.object,
+  products: PropTypes.array,
+  addToCart: PropTypes.func,
+  onDecrement: PropTypes.func
+}
 const mapStateToProps= ({products,
   cart}) =>{
   return {
@@ -47,4 +62,4 @@ const mapStateToProps= ({products,
     cart
   }
 }
-export default connect(mapStateToProps,{addToCart})(Cart);
+export default connect(mapStateToProps,{addToCart, onDecrement})(Cart);

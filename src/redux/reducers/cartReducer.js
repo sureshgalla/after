@@ -3,10 +3,16 @@ import initialState from "./initialState";
 
 
 export default function cartReducer (state = initialState.cart, action){
-  console.log("test");
   switch(action.type){
     case types.ADD_TO_CART:
-      return {...state, [action.payload]:(state[action.payload]||0)+1};
+      return {...state, [action.payload]:(state[action.payload]||0) + 1};
+    case types.DECREMENT_QUANTITY:{
+      const{[action.payload]:quantity, ...rest} = state;
+      return quantity > 1 ? {...rest, [action.payload]:quantity-1}: {...rest}
+      
+      
+      //return {...state, [action.payload]:state[action.payload] - 1 }
+    }
       default:
         return state;
     }

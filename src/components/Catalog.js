@@ -4,11 +4,17 @@ import Product from './Product';
 import {addToCart} from "../redux/actions/cartActions";
 import PropTypes from 'prop-types';
  class Catalog extends Component {
+  onChange = e => {
+     console.log(e.target.value);
+  }
   render() {
-    console.log(this.props.products);
     return (
-      <div className='wrapper'>
-        {this.props.products.map(product => <Product key={product.id} onAddToCart={this.props.addToCart} product={product}/>)}
+      <div>
+        <input type='search' style={{"marginBottom":"10px"}} onChange={this.onChange}/>
+        
+        <div className='wrapper'>
+          {this.props.products.map(product => <Product key={product.id} onAddToCart={this.props.addToCart} product={product}/>)}
+        </div>
       </div>
     )
   }
